@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cadastro de agendamentos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="agendamentosForm">
+    <ion-item>
+      <ion-label position="floating">Cliente</ion-label>
+      <ion-select formControlName="cliente">
+        <ion-select-option *ngFor="let cliente of clientes" [value]="cliente">
+          {{ cliente.nome }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tipos de cabelo</ion-label>
+      <ion-select formControlName="cabelo">
+        <ion-select-option *ngFor="let type of types" [value]="type.value">
+          {{ type.description }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Barba</ion-label>
+      <ion-checkbox
+        formControlName="barba"
+        slot="end"
+        [value]="barba"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Data: </ion-label>
+      <ion-datetime
+        formControlName="data"
+        display-format="DD de MMM de YYYY - HH:mm"
+        min="1930-01-01"
+        cancel-text="Cancelar"
+        done-text="Selecionar"
+        [monthNames]="meses"
+        [monthShortNames]="mesesAbreviados"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Barbeiro</ion-label>
+      <ion-select formControlName="barbeiro">
+        <ion-select-option
+          *ngFor="let barbeiro of barbeiros"
+          [value]="barbeiro"
+        >
+          {{ barbeiro.nome }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Valor:</ion-label>
+      <ion-input formControlName="valor" type="number"></ion-input>
+    </ion-item>
+
+    <ion-fab vertical="bottom" horizontal="start">
+      <ion-fab-button [routerLink]="['/agendamentos']">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="salvar()" [disabled]="!agendamentosForm.valid">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </form>
+</ion-content>
